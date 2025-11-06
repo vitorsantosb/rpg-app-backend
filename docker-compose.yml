@@ -1,0 +1,68 @@
+version: '3'
+services:
+  rpg-app-backend:
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node-20.16.0/rpg-app-backend
+    ports:
+      - '${APP_PORT:-4000}:4000'
+    depends_on:
+      redis:
+        condition: service_healthy
+      # MongoDB local simples (opcional - apenas para testes)
+      # Descomente se quiser usar MongoDB local
+      # mongodb-local:
+      #   condition: service_healthy
+    volumes:
+      - '.:/usr/src/rpg-app-backend'
+    networks:
+      - rpg-app-backend
+
+  redis:
+    container_name: "redis-rpg-app-backend"
+    image: 'redis:alpine'
+    command: redis-server --save 20 1
+    restart: always
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'rpg-app-backend-redis:/data'
+    networks:
+      - rpg-app-backend
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      retries: 3
+      timeout: 5s
+
+  # MongoDB Local Simples (Para testes e desenvolvimento)
+  # Sem autenticação e sem replica set - apenas para testar queries
+  mongodb-local:
+    container_name: "mongodb-local-rpg-app-backend"
+    image: 'mongo:7.0'
+    restart: always
+    ports:
+      - '${FORWARD_MONGODB_PORT:-27017}:27017'
+    volumes:
+      - 'rpg-app-backend-mongodb:/data/db'
+    networks:
+      - rpg-app-backend
+    command: mongod --bind_ip_all
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+
+networks:
+  rpg-app-backend:
+    driver: bridge
+volumes:
+  rpg-app-backend-redis:
+    driver: local
+  rpg-app-backend-mongodb:
+    driver: local

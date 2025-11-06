@@ -1,0 +1,63 @@
+{
+  "name": "rpg-app-backend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/vitorsantosb/rpg-app-backend#readme",
+  "_moduleAliases": {
+    "@modules": "build/modules",
+    "@core": "build/core"
+  },
+  "bugs": {
+    "url": "https://github.com/vitorsantosb/rpg-app-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorsantosb/rpg-app-backend.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Vitor Batista da Conceição Santos",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start:nodemon": "nodemon ts-node -r dotenv/config src/index.ts | pino-pretty",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.3",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "pino": "^10.1.0",
+    "pino-pretty": "^13.1.2",
+    "socket.io": "^4.8.1",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/js-cookie": "^3.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.10.0",
+    "@types/socket.io": "^3.0.1",
+    "@types/uuid": "^10.0.0",
+    "eslint": "^9.39.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.3"
+  }
+}

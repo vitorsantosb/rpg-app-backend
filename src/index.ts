@@ -5,6 +5,7 @@ dotenv.config();
 
 import {DebugLogMessage} from "@configs/logs/logMessages";
 import {SetupWebSocket} from '@socket/websocket';
+import {sdk} from '@configs/metrics/opentelemetry/instrumentation';
 
 
 async function StartHTTPServer(): Promise<void> {
@@ -24,6 +25,7 @@ async function StartHTTPServer(): Promise<void> {
 
 async function init() {
   try {
+    sdk.start();
     await StartHTTPServer();
   } catch (error) {
     console.error("Error during initialization", error);

@@ -1,8 +1,7 @@
-import { IPayload, UserPayloadCustom  } from '@security/interfaces/jwt-interfaces';
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
-import GetApiUrl from '@services/url.service';
-import { ApiLogMessage } from '@configs/logs/logMessages';
+import {IPayload, UserPayloadCustom} from '@security/interfaces/jwt-interfaces';
+import GetApiUrl from '@utils/url.service';
+import {Request, Response} from 'express';
 
 const jwt_secret_token = process.env.JWT_TOKEN_SECRET;
 
@@ -15,8 +14,7 @@ async function CreateUserAccessToken(payload: IPayload) {
 	return new Promise((resolve, reject) => {
 		jwt.sign(
 			payload,
-			jwt_secret_token, //change for .env var after solve problems with .env on typescript
-			{
+			jwt_secret_token, {
 				expiresIn: '24h'
 			},
 			(err, token) => {
@@ -31,7 +29,7 @@ async function CreateUserAccessToken(payload: IPayload) {
 
 async function VerifyAuthUserAccessToken(req: Request, res: Response) {
 	const token = req.cookies.authToken;
-	
+
 	if (!token) {
 		throw new Error('[JWT_GUARD] Token not found');
 	}
@@ -48,7 +46,7 @@ async function VerifyAuthUserAccessToken(req: Request, res: Response) {
 						request: {
 							method: 'POST',
 							description: 'Token is expired or invalid!',
-							URL: `${GetApiUrl}/auth`,
+							URL: `${GetApiUrl()}/auth`,
 						},
 					});
 					return resolve(false)
@@ -68,7 +66,7 @@ function DecodedUserJwtPayload(_payload: string): IPayload {
 		throw new Error('Missing JWT_TOKEN_SECRET');
 	}
 	const _payloadDecoded = jwt.verify(_payload, jwt_secret_token) as UserPayloadCustom;
-	
+
 	return {
 		id: _payloadDecoded.id,
 		name: _payloadDecoded.name,

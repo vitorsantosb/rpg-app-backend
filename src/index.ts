@@ -25,7 +25,7 @@ async function StartHTTPServer(): Promise<void> {
 
 async function init() {
   try {
-    sdk.start();
+    //sdk.start();
     await StartHTTPServer();
   } catch (error) {
     console.error("Error during initialization", error);

@@ -4,11 +4,7 @@ import {IUser} from '@models/user.model';
 require('dotenv').config();
 
 const url: string = process.env.MONGO_URI!;
-console.log('MONGO_URI', url);
-
 const client = new MongoClient(url);
-
-console.log(client);
 
 interface IDatabase {
   db: Db | null;

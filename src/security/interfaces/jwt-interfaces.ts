@@ -1,16 +1,19 @@
 import jwt from 'jsonwebtoken';
+import {ObjectId} from 'mongodb';
 
 export interface IPayload {
-	id: string,
-	name: String,
-	email: string
+	_id: ObjectId,
+	_username: string,
+	_roles: string,
+	_email: string
 }
 
 /**
  * Interface for user payload data
  */
 export interface UserPayloadCustom extends jwt.JwtPayload {
-	id: string;
-	email: string;
-	name: string;
+	_id: ObjectId;
+	_email: string;
+	_username: string;
+	_roles: string;
 }

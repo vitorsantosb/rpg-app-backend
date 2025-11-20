@@ -31,7 +31,7 @@ class UserRepository {
 
   async UpdateUserPassword(_id: string, _newPassword: string) {
     const {collections} = await GetDatabase();
-    const query = await collections.users.updateOne(
+    return await collections.users.updateOne(
       {
         _id: new ObjectId(_id),
       },
@@ -41,10 +41,6 @@ class UserRepository {
         }
       }
     );
-
-    console.log(query);
-
-    return query;
   }
 }
 

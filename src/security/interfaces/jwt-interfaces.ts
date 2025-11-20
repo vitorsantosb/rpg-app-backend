@@ -5,7 +5,8 @@ export interface IPayload {
 	_id: ObjectId,
 	_username: string,
 	_roles: string,
-	_email: string
+	_email: string,
+  _roleSlugs: string[],
 }
 
 /**
@@ -16,4 +17,5 @@ export interface UserPayloadCustom extends jwt.JwtPayload {
 	_email: string;
 	_username: string;
 	_roles: string;
+  _roleSlugs: string[];
 }

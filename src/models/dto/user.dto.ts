@@ -6,7 +6,8 @@ class UserDTO {
       _id: _payloadData._id,
       _username: _payloadData._username,
       _email: _payloadData._email,
-      _roles: _payloadData._roles
+      _roles: _payloadData._roles,
+      _roleSlugs: _payloadData._roleSlugs,
     }
   }
 }

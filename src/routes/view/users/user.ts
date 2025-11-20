@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {userViewerFunctions} from '@routes/users/functions/functions';
+import {userViewerFunctions} from '@routes/view/users/functions/functions';
 
 export const userController = {
   register: (req: Request, res: Response) => {

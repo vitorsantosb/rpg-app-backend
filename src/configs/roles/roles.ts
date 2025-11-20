@@ -2,17 +2,54 @@ import { PermissionBits, PermissionNames, addPermission, removePermission, hasPe
 import { InfoLogMessage, WarningLogMessage, SuccessLogMessage } from '@configs/logs/logMessages';
 import { RolePresets } from '@configs/roles/permissions/rolesModel';
 
+export type RoleSlug = keyof typeof RolePresets;
+
 export class RoleManager {
   /** Presets de roles padrão do sistema */
   static presets = RolePresets;
 
   /** Retorna o valor (bitfield) de uma role */
-  static getRoleValue(role: keyof typeof RolePresets): bigint {
+  static getRoleValue(role: RoleSlug): bigint {
     const value = this.presets[role];
     InfoLogMessage('RoleManager.getRoleValue', `Obtido valor da role '${role}'`, { value: value.toString() });
     return value;
   }
 
+  /** Retorna o bitfield resultante da combinação de várias roles */
+  static getRolesBitfield(roles: RoleSlug[]): bigint {
+    const bitfield = roles.reduce<bigint>((acc, role) => {
+      const value = this.getRoleValue(role);
+      return acc | value;
+    }, 0n);
+
+    InfoLogMessage('RoleManager.getRolesBitfield', 'Bitfield calculado a partir das roles fornecidas', {
+      roles,
+      bitfield: bitfield.toString(),
+    });
+
+    return bitfield;
+  }
+
+  /** Retorna os nomes das roles cujo bitfield corresponde exatamente ao valor informado */
+  static getRoleNamesFromBitfield(roleBitfield: bigint | string): string[] {
+    const bitfield = typeof roleBitfield === 'string' ? BigInt(roleBitfield) : roleBitfield;
+    const roles: string[] = [];
+
+    for (const [roleName, presetValue] of Object.entries(this.presets)) {
+      const presetBitfield = typeof presetValue === 'bigint' ? presetValue : BigInt(presetValue);
+
+      if (bitfield === presetBitfield) {
+        roles.push(roleName);
+      }
+    }
+
+    InfoLogMessage('RoleManager.getRoleNamesFromBitfield', 'Roles obtidas a partir do bitfield', {
+      bitfield: bitfield.toString(),
+      roles,
+    });
+
+    return roles;
+  }
   /** Verifica se o bitfield possui uma permissão específica */
   static hasPermission(roleBitfield: bigint, perm: bigint, requireAll = true): boolean {
     const result = hasPermission(roleBitfield, perm, requireAll);

@@ -7,7 +7,6 @@ import {DebugLogMessage} from "@configs/logs/logMessages";
 import {SetupWebSocket} from '@socket/websocket';
 import {sdk} from '@configs/metrics/opentelemetry/instrumentation';
 
-
 async function StartHTTPServer(): Promise<void> {
   const port: number = parseInt(process.env.APP_PORT as string, 10) || 5000;
   const server: http.Server = http.createServer(app);

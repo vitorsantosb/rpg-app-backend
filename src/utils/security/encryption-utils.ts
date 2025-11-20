@@ -9,7 +9,6 @@ class EncryptionUtils {
 					reject(err);
 				}
 				if (!result) {
-					WarningLogMessage('[SECURITY]', 'Wrong user password');
 					reject(false);
 				}
 				if (result) {

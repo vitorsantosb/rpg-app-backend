@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import GetApiUrl from '@services/url.service';
 import {IUser} from '@models/user.model';
 import EncryptionUtils from '@utils/security/encryption-utils';
-import {RoleManager} from '@configs/roles/roles';
+import {RoleManager, RoleSlug} from '@configs/roles/roles';
 import UserRepository from '@repository/user.repository';
 import {NormalizeEmail} from '@utils/normalizeEmail.utils';
 
@@ -36,14 +36,15 @@ export const registerUser = async (req: Request, res: Response) => {
   const passwordHash: string = await EncryptionUtils.CreateHashPassword(password);
   console.log(passwordHash);
 
-  const roleName = 'ADMINISTRATOR';
-  const roleValue = RoleManager.getRoleValue(roleName).toString();
+  const roleSlugs: RoleSlug[] = ['USER'];
+  const roleValue = RoleManager.getRolesBitfield(roleSlugs).toString();
 
   const user: IUser = {
     _username: username,
     _email: NormalizeEmail(email),
     _contacts: contacts,
     _roles: roleValue,
+    _roleSlugs: roleSlugs,
     _password_hash: passwordHash,
     _created_at: new Date(),
   }

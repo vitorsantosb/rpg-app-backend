@@ -69,7 +69,8 @@ class JwtUtils {
 			_id: _payloadDecoded._id,
 			_username: _payloadDecoded._username,
 			_email: _payloadDecoded._email,
-			_roles: _payloadDecoded._roles
+			_roles: _payloadDecoded._roles,
+      _roleSlugs: _payloadDecoded._roleSlugs,
 		}
 	}
 

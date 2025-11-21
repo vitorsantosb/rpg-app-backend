@@ -1,5 +1,6 @@
 import {MongoClient, Collection, Db, Document} from 'mongodb';
 import {IUser} from '@models/user.model';
+import {ICampaign} from '@models/campaign.model';
 
 require('dotenv').config();
 
@@ -23,15 +24,13 @@ const database: IDatabase = {
 
 interface ICollections {
   users: Collection<IUser>;
-  api: Collection<Document>;
-  system_roles: Collection<Document>;
+  campaigns: Collection<ICampaign>;
 }
 
 async function mountCollections(db: Db): Promise<ICollections> {
   return {
     users: db.collection('users'),
-    api: db.collection('api'),
-    system_roles: db.collection('system_roles'),
+    campaigns: db.collection('campaigns'),
   };
 }
 

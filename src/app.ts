@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 import userController from '@routes/controller/user.controller';
+import campaignController from '@routes/controller/campaign.controller';
 
 
 app.use(cors({
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/user', userController);
+app.use('/campaign', campaignController);
 
 app.use((_req: Request, res: Response, next: NextFunction): void => {
 	res.header('Access-Control-Allow-Origin', ['*']);

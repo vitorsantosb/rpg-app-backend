@@ -7,6 +7,9 @@ export const userController = {
   },
   login: (req: Request, res: Response) => {
     return userViewerFunctions.userLogin(req, res);
+  },
+  me: (req: Request, res: Response) => {
+    return userViewerFunctions.GetUserData(req, res);
   }
 };
 

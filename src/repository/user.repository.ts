@@ -21,6 +21,16 @@ class UserRepository {
     );
   }
 
+  async GetUserDataById(_id: string) {
+    const {collections} = await GetDatabase();
+
+    return collections.users.findOne(
+      {
+        _id: new ObjectId(_id)
+      }
+    );
+  }
+
   async GetUserDataByEmail(_email: string) {
     const {collections} = await GetDatabase();
 

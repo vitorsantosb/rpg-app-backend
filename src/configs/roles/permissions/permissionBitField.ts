@@ -17,6 +17,7 @@ export const PermissionBits = {
   COMMENT_CONTENT              : 1n << 36n, // Comentar em conteúdos públicos
   VIEW_CONTENT                 : 1n << 37n, // Visualizar conteúdo público
   REPORT_CONTENT               : 1n << 38n, // Reportar conteúdo inadequado
+  GET_USER_DATA                : 1n << 39n, // Recuperar os dados de usuários.
 
   // === GAME MASTER ===
   CREATE_CAMPAIGN              : 1n << 0n,  // Criar campanha

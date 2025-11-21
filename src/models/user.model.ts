@@ -7,6 +7,7 @@ export interface IUser {
   _password_hash: string;
   _roles: string;
   _roleSlugs: string[];
+  _avatar?: string;
   _contacts?: ObjectId[]
   _created_at: Date;
   _updated_at?: Date;
@@ -20,4 +21,5 @@ export interface IUserPayload {
   _email: string;
   _roles: string;
   _roleSlugs: string[];
+  _avatar?: string;
 }

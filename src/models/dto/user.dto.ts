@@ -8,6 +8,7 @@ class UserDTO {
       _email: _payloadData._email,
       _roles: _payloadData._roles,
       _roleSlugs: _payloadData._roleSlugs,
+      _avatar: _payloadData._avatar,
     }
   }
 }
